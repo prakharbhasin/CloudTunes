@@ -6,6 +6,7 @@ void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: ArtistScreen(),
+    title: "Artists",
   ));
 }
 
@@ -40,39 +41,36 @@ class _ArtistScreenState extends State<ArtistScreen> {
                       child: Container(
                           alignment: Alignment.center,
                           color: Colors.black.withOpacity(0.6),
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Padding(
-                                    padding: EdgeInsets.all(10),
-                                    child: CircleAvatar(
-                                      radius: 51.5,
-                                      backgroundColor: Colors.grey[500],
+                          child: SingleChildScrollView(
+                            child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Padding(
+                                      padding: EdgeInsets.all(10),
                                       child: CircleAvatar(
-                                        radius: 50,
-                                        backgroundImage: NetworkImage(
-                                            'https://lastfm.freetls.fastly.net/i/u/770x0/2fb9deb1b31042fa291f1997389d93ea.webp#2fb9deb1b31042fa291f1997389d93ea'),
-                                      ),
-                                    )),
-                                Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                          width: 125,
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            "Travis Scott",
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20,
-                                                letterSpacing: 1),
-                                          )),
-                                    ])
-                              ]))))),
+                                        radius: 51.5,
+                                        backgroundColor: Colors.grey[500],
+                                        child: CircleAvatar(
+                                          radius: 50,
+                                          backgroundImage: NetworkImage(
+                                              'https://lastfm.freetls.fastly.net/i/u/770x0/2fb9deb1b31042fa291f1997389d93ea.webp#2fb9deb1b31042fa291f1997389d93ea'),
+                                        ),
+                                      )),
+                                  Container(
+                                      width: 125,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Travis Scott",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                            letterSpacing: 1),
+                                      ))
+                                ]),
+                          ))))),
           Container(
               height: 175,
               width: 175,
