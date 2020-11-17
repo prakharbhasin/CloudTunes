@@ -15,6 +15,7 @@ import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:google_sign_in/google_sign_in.dart' as signIn;
 
 //importing files
+import 'my_client.dart';
 import 'screens/NowplayingMain.dart';
 import 'screens/homeScreen.dart';
 import 'screens/albumScreen.dart';
@@ -50,10 +51,20 @@ import 'screens/aboutScreen.dart';
 //   await googleSignIn.signOut();
 //   print("User Signed Out");
 // }
+
 Future<void> _signInWithGoogle() async {
   final googleSignIn =
       signIn.GoogleSignIn.standard(scopes: [drive.DriveApi.DriveScope]);
   final signIn.GoogleSignInAccount account = await googleSignIn.signIn();
+  signIn.GoogleSignInAuthentication authentication =
+      await account.authentication;
+  final client = MyClient(defaultHeaders: {
+    'Authorization': 'Bearer ${authentication.accessToken}'
+  });
+
+  drive.DriveApi driveapi = drive.DriveApi(client);
+  var files = driveapi.files.list();
+  print(files);
   print("User account $account");
 }
 
@@ -120,11 +131,11 @@ class _RandomWordsState extends State<RandomWords> {
                     child: RaisedButton(
                       color: Colors.deepPurple[700],
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Songs()),
-                        );
-                        //_signInWithGoogle();
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => Songs()),
+                        // );
+                        _signInWithGoogle();
                       },
                       textColor: Colors.white,
                       splashColor: Colors.deepPurpleAccent[200],
