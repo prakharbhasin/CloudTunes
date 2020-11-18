@@ -56,15 +56,15 @@ Future<void> _signInWithGoogle() async {
   final googleSignIn =
       signIn.GoogleSignIn.standard(scopes: [drive.DriveApi.DriveScope]);
   final signIn.GoogleSignInAccount account = await googleSignIn.signIn();
-  signIn.GoogleSignInAuthentication authentication =
-      await account.authentication;
-  final client = MyClient(defaultHeaders: {
-    'Authorization': 'Bearer ${authentication.accessToken}'
-  });
+  // signIn.GoogleSignInAuthentication authentication =
+  //     await account.authentication;
+  // final client = MyClient(defaultHeaders: {
+  //   'Authorization': 'Bearer ${authentication.accessToken}'
+  // });
 
-  drive.DriveApi driveapi = drive.DriveApi(client);
-  var files = driveapi.files.list();
-  print(files);
+  // drive.DriveApi driveapi = drive.DriveApi(client);
+  // var files = driveapi.files.list();
+  // print(files);
   print("User account $account");
 }
 
