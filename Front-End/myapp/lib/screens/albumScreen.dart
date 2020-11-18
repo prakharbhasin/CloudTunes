@@ -1,5 +1,34 @@
 import 'package:flutter/material.dart';
 
+final artistList = [
+  "Travis Scott",
+  "Ritviz",
+  "Nas",
+  "Kanye West",
+  "Alan Walker",
+  "The Weeknd",
+  "The Weeknd"
+];
+
+final albumList = [
+  "HITR",
+  "Ved",
+  "King's Disease",
+  "MBDTF",
+  "Faded",
+  "After Hours",
+  "After Hours"
+];
+final coverList = [
+  'https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Travis_Scott_-_Highest_in_the_Room.png/330px-Travis_Scott_-_Highest_in_the_Room.png',
+  'https://i.pinimg.com/originals/46/dd/39/46dd39b3e2c62b4e379ed6155449be28.jpg',
+  'https://upload.wikimedia.org/wikipedia/en/1/1e/King%27s_Disease_by_Nas.jpg',
+  'https://upload.wikimedia.org/wikipedia/en/b/be/MBDTF_ALT.jpg',
+  'https://upload.wikimedia.org/wikipedia/en/d/da/Alan_Walker_-_Faded.png',
+  'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png',
+  'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png',
+];
+
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -18,206 +47,66 @@ class _AlbumScreenState extends State<AlbumScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
+    /*24 is for notification bar on Android*/
+    final double itemHeight = (size.height - kToolbarHeight - 200) / 2;
+    final double itemWidth = size.width / 2;
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: Column(children: <Widget>[
-        Row(children: <Widget>[
-          Container(
-              height: 205,
-              width: 175,
-              margin: EdgeInsets.fromLTRB(22.5, 0, 0, 12.5),
-              decoration: BoxDecoration(
-                borderRadius: new BorderRadius.all(new Radius.circular(24.0)),
-                shape: BoxShape.rectangle,
-                color: Colors.redAccent[400],
-              ),
-              child: Column(children: <Widget>[
-                Container(
-                  height: 160,
-                  width: 175,
+        backgroundColor: Colors.black,
+        body: GridView.count(
+            // Create a grid with 2 columns. If you change the scrollDirection to
+            // horizontal, this produces 2 rows.
+            crossAxisCount: 2,
+            crossAxisSpacing: 20.0,
+            mainAxisSpacing: 10.0,
+            shrinkWrap: true,
+            childAspectRatio: (itemWidth / itemHeight),
+            // Generate 100 widgets that display their index in the List.
+            children: List.generate(artistList.length, (index) {
+              return Container(
+                  height: 175,
+                  width: 145,
+                  // margin: EdgeInsets.fromLTRB(1, 5, 0, 1),
+                  padding: EdgeInsets.symmetric(horizontal: 1, vertical: 10),
                   decoration: BoxDecoration(
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(24.0)),
-                      shape: BoxShape.rectangle,
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              "https://lastfm.freetls.fastly.net/i/u/770x0/dfd01019404313399f77999285f78aa9.webp#dfd01019404313399f77999285f78aa9"),
-                          fit: BoxFit.fitWidth)),
-                ),
-                Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
+                    borderRadius:
+                        new BorderRadius.all(new Radius.circular(22.0)),
+                    shape: BoxShape.rectangle,
+                    color: Colors.grey[900],
+                  ),
+                  child: SingleChildScrollView(
+                    child: Column(children: <Widget>[
                       Container(
-                          width: 160,
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
-                              child: Text(
-                                "Starboy",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.5,
-                                ),
-                              ))),
+                        height: 155,
+                        width: 155,
+                        decoration: BoxDecoration(
+                            borderRadius:
+                                new BorderRadius.all(new Radius.circular(22.0)),
+                            shape: BoxShape.rectangle,
+                            image: DecorationImage(
+                                image: NetworkImage(coverList[index]),
+                                fit: BoxFit.fitWidth)),
+                      ),
+                      Padding(
+                          padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                          child: Text(
+                            albumList[index],
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.5,
+                            ),
+                          )),
                       Padding(
                           padding: EdgeInsets.fromLTRB(0, 1, 0, 0),
-                          child: Text("The Weeknd",
+                          child: Text(artistList[index],
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,
-                              ))),
-                    ])
-              ])),
-          Container(
-              height: 205,
-              width: 175,
-              margin: EdgeInsets.fromLTRB(22.5, 0, 0, 12.5),
-              decoration: BoxDecoration(
-                borderRadius: new BorderRadius.all(new Radius.circular(24.0)),
-                shape: BoxShape.rectangle,
-                color: Colors.blueAccent[100],
-              ),
-              child: Column(children: <Widget>[
-                Container(
-                  height: 160,
-                  width: 175,
-                  decoration: BoxDecoration(
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(24.0)),
-                      shape: BoxShape.rectangle,
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              "https://lastfm.freetls.fastly.net/i/u/770x0/0fa89808a82367bed2ea11e16868c50b.webp#0fa89808a82367bed2ea11e16868c50b"),
-                          fit: BoxFit.fitWidth)),
-                ),
-                Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Container(
-                          width: 160,
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
-                              child: Text(
-                                "Astroworld",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.5,
-                                ),
-                              ))),
-                      Padding(
-                          padding: EdgeInsets.fromLTRB(0, 1, 0, 0),
-                          child: Text("Travis Scott",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ))),
-                    ])
-              ])),
-        ]),
-        Row(children: <Widget>[
-          Container(
-              height: 205,
-              width: 175,
-              margin: EdgeInsets.fromLTRB(22.5, 0, 0, 12.5),
-              decoration: BoxDecoration(
-                borderRadius: new BorderRadius.all(new Radius.circular(24.0)),
-                shape: BoxShape.rectangle,
-                color: Colors.green[900],
-              ),
-              child: Column(children: <Widget>[
-                Container(
-                  height: 160,
-                  width: 175,
-                  decoration: BoxDecoration(
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(24.0)),
-                      shape: BoxShape.rectangle,
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              "https://lastfm.freetls.fastly.net/i/u/770x0/03ce096b2ac8b6625bb5a08333e4c2fd.webp#03ce096b2ac8b6625bb5a08333e4c2fd"),
-                          fit: BoxFit.fitWidth)),
-                ),
-                Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Container(
-                          width: 160,
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
-                              child: Text(
-                                "ZUU",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.5,
-                                ),
-                              ))),
-                      Padding(
-                          padding: EdgeInsets.fromLTRB(0, 1, 0, 0),
-                          child: Text("Denzel Curry",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ))),
-                    ])
-              ])),
-          Container(
-              height: 205,
-              width: 175,
-              margin: EdgeInsets.fromLTRB(22.5, 0, 0, 12.5),
-              decoration: BoxDecoration(
-                borderRadius: new BorderRadius.all(new Radius.circular(24.0)),
-                shape: BoxShape.rectangle,
-                color: Colors.yellow[900],
-              ),
-              child: Column(children: <Widget>[
-                Container(
-                  height: 160,
-                  width: 175,
-                  decoration: BoxDecoration(
-                      borderRadius:
-                          new BorderRadius.all(new Radius.circular(24.0)),
-                      shape: BoxShape.rectangle,
-                      image: DecorationImage(
-                          image: NetworkImage(
-                              "https://lastfm.freetls.fastly.net/i/u/770x0/52a7f32bdc99238080b0f17e859b3b4d.webp#52a7f32bdc99238080b0f17e859b3b4d"),
-                          fit: BoxFit.fitWidth)),
-                ),
-                Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Container(
-                          width: 160,
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                              padding: EdgeInsets.fromLTRB(0, 2, 0, 0),
-                              child: Text(
-                                "Flower Boy",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.5,
-                                ),
-                              ))),
-                      Padding(
-                          padding: EdgeInsets.fromLTRB(0, 1, 0, 0),
-                          child: Text("Tyler, the Creator",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12,
-                              ))),
-                    ])
-              ])),
-        ]),
-      ]),
-    );
+                              )))
+                    ]),
+                  ));
+            })));
   }
 }

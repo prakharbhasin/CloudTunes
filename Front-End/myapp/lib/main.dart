@@ -4,7 +4,6 @@
 
 //importing packages
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:palette_generator/palette_generator.dart';
 //import 'package:just_audio/just_audio.dart';
@@ -67,6 +66,7 @@ Future<void> _signInWithGoogle() async {
   // print(files);
   print("User account $account");
 }
+
 
 void main() => runApp(MyApp());
 
@@ -131,11 +131,11 @@ class _RandomWordsState extends State<RandomWords> {
                     child: RaisedButton(
                       color: Colors.deepPurple[700],
                       onPressed: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => Songs()),
-                        // );
-                        _signInWithGoogle();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Songs()),
+                        );
+                        //_signInWithGoogle();
                       },
                       textColor: Colors.white,
                       splashColor: Colors.deepPurpleAccent[200],
