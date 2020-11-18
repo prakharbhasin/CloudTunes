@@ -135,7 +135,7 @@ class _RandomWordsState extends State<RandomWords> {
                           context,
                           MaterialPageRoute(builder: (context) => Songs()),
                         );
-                        //_signInWithGoogle();
+                        _signInWithGoogle();
                       },
                       textColor: Colors.white,
                       splashColor: Colors.deepPurpleAccent[200],
