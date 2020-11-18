@@ -37,9 +37,11 @@ dependencies:
   firebase_core: ^0.5.0
   firebase_auth: ^0.18.0+1
   google_sign_in: ^4.5.3
-  googleapis: any
+  googleapis: ^0.56.1
+  googleapis_auth: ^0.2.12
   http: ^0.12.2
   scrobblenaut: ^2.0.4
+  flutter_secure_storage: ^3.3.5
 
   
   

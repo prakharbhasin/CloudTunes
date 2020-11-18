@@ -2,16 +2,35 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-//importing packages
-import 'package:flutter/material.dart';
+// //importing packages
+// import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:palette_generator/palette_generator.dart';
-//import 'package:just_audio/just_audio.dart';
-import 'dart:ui';
+// //import 'package:just_audio/just_audio.dart';
+// import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:googleapis/drive/v3.dart' as ga;
+// import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:path/path.dart' as path;
+// import 'package:http/io_client.dart';
+// import 'package:path_provider/path_provider.dart';
+// // import 'package:file_picker/file_picker.dart';
+
+import 'dart:io';
+
+// import 'package:file_picker/file_picker.dart';
+import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:googleapis/drive/v3.dart' as drive;
-import 'package:google_sign_in/google_sign_in.dart' as signIn;
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:googleapis/drive/v3.dart' as ga;
+import 'package:http/http.dart' as http;
+import 'package:path/path.dart' as path;
+import 'package:http/io_client.dart';
+import 'package:path_provider/path_provider.dart';
 
 //importing files
 import 'my_client.dart';
@@ -51,24 +70,27 @@ import 'screens/aboutScreen.dart';
 //   print("User Signed Out");
 // }
 
-Future<void> _signInWithGoogle() async {
-  final googleSignIn =
-      signIn.GoogleSignIn.standard(scopes: [drive.DriveApi.DriveScope]);
-  final signIn.GoogleSignInAccount account = await googleSignIn.signIn();
-  // signIn.GoogleSignInAuthentication authentication =
-  //     await account.authentication;
-  // final client = MyClient(defaultHeaders: {
-  //   'Authorization': 'Bearer ${authentication.accessToken}'
-  // });
+// Future<void> _signInWithGoogle() async {
+//   final googleSignIn =
+//       signIn.GoogleSignIn.standard(scopes: [drive.DriveApi.DriveScope]);
+//   final signIn.GoogleSignInAccount account = await googleSignIn.signIn();
+//   // signIn.GoogleSignInAuthentication authentication =
+//   //     await account.authentication;
+//   // final client = MyClient(defaultHeaders: {
+//   //   'Authorization': 'Bearer ${authentication.accessToken}'
+//   // });
 
-  // drive.DriveApi driveapi = drive.DriveApi(client);
-  // var files = driveapi.files.list();
-  // print(files);
-  print("User account $account");
+//   // drive.DriveApi driveapi = drive.DriveApi(client);
+//   // var files = driveapi.files.list();
+//   // print(files);
+//   print("User account $account");
+// }
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
 }
-
-
-void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
@@ -87,6 +109,71 @@ class RandomWords extends StatefulWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
+  final storage = new FlutterSecureStorage();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn googleSignIn =
+      GoogleSignIn(scopes: ['https://www.googleapis.com/auth/drive.appdata']);
+  GoogleSignInAccount googleSignInAccount;
+  ga.FileList list;
+  var signedIn = false;
+
+  Future<void> _loginWithGoogle() async {
+    print("Hello 1"); // PRINT TEST 1
+    signedIn = await storage.read(key: "signedIn") == "true" ? true : false;
+    googleSignIn.onCurrentUserChanged
+        .listen((GoogleSignInAccount googleSignInAccount) async {
+      if (googleSignInAccount != null) {
+        _afterGoogleLogin(googleSignInAccount);
+      }
+    });
+    print("Hello 2"); // PRINT TEST 2
+    if (signedIn) {
+      try {
+        googleSignIn.signInSilently().whenComplete(() => () {});
+      } catch (e) {
+        storage.write(key: "signedIn", value: "false").then((value) {
+          setState(() {
+            signedIn = false;
+          });
+        });
+      }
+    } else {
+      final GoogleSignInAccount googleSignInAccount =
+          await googleSignIn.signIn();
+      _afterGoogleLogin(googleSignInAccount);
+    }
+  }
+
+  Future<void> _afterGoogleLogin(GoogleSignInAccount gSA) async {
+    print("After Google Login Init."); // PRINT TEST 3
+    googleSignInAccount = gSA;
+    final GoogleSignInAuthentication googleSignInAuthentication =
+        await googleSignInAccount.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleSignInAuthentication.accessToken,
+      idToken: googleSignInAuthentication.idToken,
+    );
+
+    final UserCredential authResult =
+        await _auth.signInWithCredential(credential);
+    final User user = authResult.user;
+
+    assert(!user.isAnonymous);
+    assert(await user.getIdToken() != null);
+
+    final User currentUser = _auth.currentUser;
+    assert(user.uid == currentUser.uid);
+
+    print('signInWithGoogle succeeded: $user');
+
+    storage.write(key: "signedIn", value: "true").then((value) {
+      setState(() {
+        signedIn = true;
+      });
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
@@ -131,11 +218,11 @@ class _RandomWordsState extends State<RandomWords> {
                     child: RaisedButton(
                       color: Colors.deepPurple[700],
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Songs()),
-                        );
-                        _signInWithGoogle();
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => Songs()),
+                        // );
+                        _loginWithGoogle();
                       },
                       textColor: Colors.white,
                       splashColor: Colors.deepPurpleAccent[200],
