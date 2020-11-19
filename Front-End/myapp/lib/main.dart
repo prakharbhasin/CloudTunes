@@ -103,6 +103,20 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class GoogleHttpClient extends IOClient {
+  Map<String, String> _headers;
+
+  GoogleHttpClient(this._headers) : super();
+
+  @override
+  Future<IOStreamedResponse> send(http.BaseRequest request) =>
+      super.send(request..headers.addAll(_headers));
+
+  @override
+  Future<http.Response> head(Object url, {Map<String, String> headers}) =>
+      super.head(url, headers: headers..addAll(_headers));
+}
+
 class RandomWords extends StatefulWidget {
   @override
   _RandomWordsState createState() => _RandomWordsState();
@@ -174,6 +188,31 @@ class _RandomWordsState extends State<RandomWords> {
     });
   }
 
+  Future<void> _listGoogleDriveFiles() async {
+    // print("LINE 1");
+    var client = GoogleHttpClient(await googleSignInAccount.authHeaders);
+    var drive = ga.DriveApi(client);
+    // print("LINE 2, drive:");
+    // print(drive);
+    drive.files
+        .list(
+            q: 'mimeType ="audio/mpeg"',
+            $fields:
+                "nextPageToken, files(id, name, webViewLink, webContentLink)")
+        .then((value) {
+      setState(() {
+        list = value;
+      });
+      // for (var i = 0; i < list.files.length; i++) {
+      //   print("Id: ${list.files[i].id} File Name:${list.files[i].name}");
+      // }
+      print(list.files[5].id);
+      print(list.files[5].name);
+      print(list.files[5].webViewLink);
+      print(list.files[5].webContentLink);
+    });
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.black,
@@ -218,11 +257,11 @@ class _RandomWordsState extends State<RandomWords> {
                     child: RaisedButton(
                       color: Colors.deepPurple[700],
                       onPressed: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => Songs()),
-                        // );
                         _loginWithGoogle();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Songs()),
+                        );
                       },
                       textColor: Colors.white,
                       splashColor: Colors.deepPurpleAccent[200],
@@ -230,6 +269,28 @@ class _RandomWordsState extends State<RandomWords> {
                         borderRadius: new BorderRadius.circular(20.0),
                       ),
                       child: Text("Sign in with Google",
+                          style: TextStyle(fontSize: 15)),
+                    ))),
+            Padding(
+                padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+                child: ButtonTheme(
+                    minWidth: 220,
+                    height: 50,
+                    child: RaisedButton(
+                      color: Colors.deepPurple[700],
+                      onPressed: () {
+                        _listGoogleDriveFiles();
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => Songs()),
+                        // );
+                      },
+                      textColor: Colors.white,
+                      splashColor: Colors.deepPurpleAccent[200],
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(20.0),
+                      ),
+                      child: Text("Show files with Google",
                           style: TextStyle(fontSize: 15)),
                     )))
           ]),
