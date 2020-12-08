@@ -25,7 +25,7 @@ fetchMetadata(List<Map<String, dynamic>> dataList) async {
     dataList[i]['trackName'] = trackGetInfo.name;
     dataList[i]['artistName'] = trackGetInfo.artist.name;
     dataList[i]['albumName'] = trackGetInfo.album.title;
-    dataList[i]['albumArtLink'] = trackGetInfo.album.images[3].text;
+    dataList[i]['albumArtLink'] = trackGetInfo.album.images[2].text;
   }
 
   // print('Track Name: ${trackGetInfo.name} |'

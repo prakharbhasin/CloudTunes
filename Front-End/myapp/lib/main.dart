@@ -4,6 +4,8 @@
 
 // //importing packages
 // import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:myapp/metadata.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -190,6 +192,7 @@ class _RandomWordsState extends State<RandomWords> {
         signedIn = true;
       });
     });
+    _listGoogleDriveFiles();
   }
 
   Future<void> _listGoogleDriveFiles() async {
@@ -316,12 +319,15 @@ class _RandomWordsState extends State<RandomWords> {
                     child: RaisedButton(
                       color: Color(0xffff0055),
                       onPressed: () {
-                        _listGoogleDriveFiles().then((value) {
+                        // _listGoogleDriveFiles().then((value) {
+                        Timer(Duration(seconds: 6), () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Songs()),
                           );
                         });
+
+                        // });
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(builder: (context) => Songs()),
