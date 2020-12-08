@@ -43,18 +43,16 @@ class _PlayerState extends State<Player> {
             ),
           ),
           Text(
-            'highest in the room',
+            'Highest in the room',
             style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.w500,
-                color: darkPrimaryColor),
+                fontSize: 28, fontWeight: FontWeight.w500, color: Colors.white),
           ),
           Text(
-            'TRAVIS SCOTT ',
+            'Travis Scott ',
             style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w400,
-                color: darkPrimaryColor),
+                color: Colors.white70),
           ),
           SliderTheme(
             data: SliderThemeData(

@@ -203,13 +203,23 @@ class _RandomWordsState extends State<RandomWords> {
       setState(() {
         list = value;
       });
+
+      // // Gets all the file data Required for most purposes
       // for (var i = 0; i < list.files.length; i++) {
       //   print("Id: ${list.files[i].id} File Name:${list.files[i].name}");
       // }
+
       print(list.files[5].id);
       print(list.files[5].name);
-      print(list.files[5].webViewLink);
-      print(list.files[5].webContentLink);
+      print(list.files[5].webViewLink); // For playing the file online.
+      print(list.files[5].webContentLink); // For downloading the file
+
+      // For the Last fm API calls: (All functions need to be seperated later for better readaility)
+      var tokenizerOutput = list.files[5].name.split("-");
+      String songName = tokenizerOutput[0];
+      String artistName = tokenizerOutput[1].split(".m")[0];
+      print(
+          "The song is called $songName and the Artist for it is $artistName");
     });
   }
 
@@ -255,7 +265,7 @@ class _RandomWordsState extends State<RandomWords> {
                     minWidth: 220,
                     height: 50,
                     child: RaisedButton(
-                      color: Colors.deepPurple[700],
+                      color: Color(0xffff0055),
                       onPressed: () {
                         _loginWithGoogle();
                         Navigator.push(
@@ -264,7 +274,7 @@ class _RandomWordsState extends State<RandomWords> {
                         );
                       },
                       textColor: Colors.white,
-                      splashColor: Colors.deepPurpleAccent[200],
+                      splashColor: Colors.pink[400],
                       shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(20.0),
                       ),
@@ -277,7 +287,7 @@ class _RandomWordsState extends State<RandomWords> {
                     minWidth: 220,
                     height: 50,
                     child: RaisedButton(
-                      color: Colors.deepPurple[700],
+                      color: Color(0xffff0055),
                       onPressed: () {
                         _listGoogleDriveFiles();
                         // Navigator.push(
@@ -286,7 +296,7 @@ class _RandomWordsState extends State<RandomWords> {
                         // );
                       },
                       textColor: Colors.white,
-                      splashColor: Colors.deepPurpleAccent[200],
+                      splashColor: Colors.pink[400],
                       shape: new RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(20.0),
                       ),
@@ -372,7 +382,7 @@ class _SongsState extends State<Songs> {
           // Add your onPressed code here!
         },
         child: Icon(Icons.music_note),
-        backgroundColor: Colors.deepPurple[700],
+        backgroundColor: Color(0xffff0055),
       ),
       bottomNavigationBar: CurvedNavigationBar(
         index: 0,
@@ -385,7 +395,7 @@ class _SongsState extends State<Songs> {
         ],
         color: Colors.grey[900],
         buttonBackgroundColor: Colors.grey[900],
-        backgroundColor: Colors.deepPurple[700],
+        backgroundColor: Color(0xffff0055),
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 300),
         onTap: (index) {

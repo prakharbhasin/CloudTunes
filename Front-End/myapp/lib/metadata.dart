@@ -9,13 +9,16 @@ void main() async {
 
   var scrobblenaut = Scrobblenaut(lastFM: lastFM);
 
-  final albumGetInfo = (await scrobblenaut.album.getInfo(
-    album: 'astroworld',
-    artist: 'travis scott',
+  final trackGetInfo = (await scrobblenaut.track.getInfo(
+    track: 'faded',
+    artist: 'alan walker',
     username: 'nebulino',
     autoCorrect: true,
   ));
 
-  print('Album Name: ${albumGetInfo.name} |'
-      ' Album Artist: ${albumGetInfo.artist.name}');
+  print('Track Name: ${trackGetInfo.name} |'
+      ' Track Artist: ${trackGetInfo.artist.name}');
+  print(trackGetInfo.album.images); // Gets all images of diff sizes from 0 to 3
+  print(trackGetInfo.album.images[3].text); // Gets the largest image ki URL
+  // print(trackGetInfo.album.images);
 }
