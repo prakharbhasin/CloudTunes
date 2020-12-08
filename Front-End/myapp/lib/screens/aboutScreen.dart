@@ -5,7 +5,7 @@ final nameList = ["Apoorva Nautiyal", "Prakhar Bhasin", "Kirtik Singh"];
 final bioList = [
   "also known as Lao Anfu",
   "also known as slattkhar",
-  "also known as k2boi"
+  "also known as ki2"
 ];
 final imageList = [
   'assets/Appu.png',
@@ -34,7 +34,7 @@ class AboutUs extends StatelessWidget {
                 Padding(
                     padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
                     child: Text(
-                      "we made this, bitch.",
+                      "Yeah, we made this.",
                       style: TextStyle(
                           color: Colors.blueGrey[200],
                           fontSize: 17.5,

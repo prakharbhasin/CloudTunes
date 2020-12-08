@@ -440,6 +440,8 @@ class _SeekBarState extends State<SeekBar> {
     return Stack(
       children: [
         Slider(
+          activeColor: Color(0xffff0055),
+          inactiveColor: Colors.pink[200],
           min: 0.0,
           max: widget.duration.inMilliseconds.toDouble(),
           value: min(_dragValue ?? widget.position.inMilliseconds.toDouble(),

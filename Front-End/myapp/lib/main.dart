@@ -320,7 +320,7 @@ class _RandomWordsState extends State<RandomWords> {
                       color: Color(0xffff0055),
                       onPressed: () {
                         // _listGoogleDriveFiles().then((value) {
-                        Timer(Duration(seconds: 6), () {
+                        Timer(Duration(seconds: 0), () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Songs()),
