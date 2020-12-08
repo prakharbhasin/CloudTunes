@@ -5,6 +5,7 @@
 // //importing packages
 // import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:myapp/metadata.dart';
 import 'package:palette_generator/palette_generator.dart';
 // //import 'package:just_audio/just_audio.dart';
 // import 'dart:ui';
@@ -33,13 +34,15 @@ import 'package:http/io_client.dart';
 import 'package:path_provider/path_provider.dart';
 
 //importing files
-import 'my_client.dart';
+import 'metadata.dart';
 import 'screens/NowplayingMain.dart';
 import 'screens/homeScreen.dart';
 import 'screens/albumScreen.dart';
 import 'screens/artistScreen.dart';
 import 'screens/recomScreen.dart';
 import 'screens/aboutScreen.dart';
+
+List<Map<String, dynamic>> dataList = [];
 
 // final FirebaseAuth _auth = FirebaseAuth.instance;
 // final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -123,8 +126,7 @@ class RandomWords extends StatefulWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
-  List<Map<String, dynamic>> dataList =
-      []; // List of all data obtained from the google drive
+  // List of all data obtained from the google drive
   final storage = new FlutterSecureStorage();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn =
@@ -226,7 +228,7 @@ class _RandomWordsState extends State<RandomWords> {
 
       // LIST CODE STARTS -------------------------------------------
       var myObject = null;
-
+      // print(list.files.length);
       // Gets all the file data Required for most purposes
       for (var i = 0; i < list.files.length; i++) {
         var tokenizerOutput = list.files[i].name.split("-");
@@ -242,29 +244,8 @@ class _RandomWordsState extends State<RandomWords> {
         };
         dataList.add(myObject);
       }
-      print("This is the Datalist: \n $dataList \n\n");
-      print(
-          "This is the first entry that should represent One complete song: \n ${dataList[0]} \n\n");
-
-      // for (int i = 0; i <= 5; i++) {
-      // myObject = {
-      //   'song': 'faded',
-      //   'artist': 'alan walker',
-      //   'link': 'https://www.youtube.com/watch?v=fueHz41q26o',
-      // };
-      // send.add(myObject);
-      // }
-      // print(myObject);
-      // print("\n");
-      // print(send);
-      // print("\n");
-
-      // print(send[0]);
-      // print("\n");
-
-      // print(send[0]["song"]);
-      // print("\n");
-
+      fetchMetadata(dataList);
+      print(dataList);
       // LIST CODE ENDS -------------------------------------------
     });
   }
@@ -314,10 +295,10 @@ class _RandomWordsState extends State<RandomWords> {
                       color: Color(0xffff0055),
                       onPressed: () {
                         _loginWithGoogle();
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Songs()),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(builder: (context) => Songs()),
+                        // );
                       },
                       textColor: Colors.white,
                       splashColor: Colors.pink[400],
@@ -335,7 +316,12 @@ class _RandomWordsState extends State<RandomWords> {
                     child: RaisedButton(
                       color: Color(0xffff0055),
                       onPressed: () {
-                        _listGoogleDriveFiles();
+                        _listGoogleDriveFiles().then((value) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Songs()),
+                          );
+                        });
                         // Navigator.push(
                         //   context,
                         //   MaterialPageRoute(builder: (context) => Songs()),
@@ -362,6 +348,7 @@ class Songs extends StatefulWidget {
 class _SongsState extends State<Songs> {
   @override
   int _currentIndex = 0;
+
   final List<String> albums = [
     "https://lastfm.freetls.fastly.net/i/u/770x0/0fa89808a82367bed2ea11e16868c50b.webp#0fa89808a82367bed2ea11e16868c50b",
     "https://lastfm.freetls.fastly.net/i/u/770x0/dfd01019404313399f77999285f78aa9.webp#dfd01019404313399f77999285f78aa9",
@@ -371,18 +358,18 @@ class _SongsState extends State<Songs> {
   @override
   void initState() {
     super.initState();
-    _getImagePalette();
+    //_getImagePalette();
   }
 
-  _getImagePalette() async {
-    colors = [];
-    for (String album in albums) {
-      final PaletteGenerator paletteGenerator =
-          await PaletteGenerator.fromImageProvider(NetworkImage(album));
-      colors.add(paletteGenerator.dominantColor);
-    }
-    setState(() {});
-  }
+  // _getImagePalette() async {
+  //   colors = [];
+  //   for (String album in albums) {
+  //     final PaletteGenerator paletteGenerator =
+  //         await PaletteGenerator.fromImageProvider(NetworkImage(album));
+  //     colors.add(paletteGenerator.dominantColor);
+  //   }
+  //   setState(() {});
+  // }
 
   final tabs = [HomeScreen(), AlbumScreen(), ArtistScreen(), RecomScreen()];
 

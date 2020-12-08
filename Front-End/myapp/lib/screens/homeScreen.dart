@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/main.dart';
+import 'package:myapp/metadata.dart';
 
 final coverList = [
   'https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Travis_Scott_-_Highest_in_the_Room.png/330px-Travis_Scott_-_Highest_in_the_Room.png',
@@ -50,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.black,
         body: ListView.builder(
             padding: const EdgeInsets.all(8),
-            itemCount: artistList.length,
+            itemCount: dataList.length,
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
@@ -71,7 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         Padding(
                             padding: EdgeInsets.all(10),
                             child: Image(
-                                image: NetworkImage(coverList[index]),
+                                image: NetworkImage(
+                                    dataList[index]['albumArtLink']),
                                 width: 75,
                                 height: 75)),
                         Column(
@@ -79,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Text(
-                                songList[index],
+                                dataList[index]['trackName'],
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -87,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     letterSpacing: 1),
                               ),
                               Text(
-                                artistList[index],
+                                dataList[index]['artistName'],
                                 style: TextStyle(
                                   color: Colors.grey[500],
                                   fontSize: 12.5,
