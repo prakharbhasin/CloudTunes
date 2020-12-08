@@ -123,6 +123,8 @@ class RandomWords extends StatefulWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
+  List<Map<String, dynamic>> dataList =
+      []; // List of all data obtained from the google drive
   final storage = new FlutterSecureStorage();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn =
@@ -209,17 +211,61 @@ class _RandomWordsState extends State<RandomWords> {
       //   print("Id: ${list.files[i].id} File Name:${list.files[i].name}");
       // }
 
-      print(list.files[5].id);
-      print(list.files[5].name);
-      print(list.files[5].webViewLink); // For playing the file online.
-      print(list.files[5].webContentLink); // For downloading the file
+      // Listing out everything to crosscheck
+      // print(list.files[5].id);
+      // print(list.files[5].name);
+      // print(list.files[5].webViewLink); // For playing the file online.
+      // print(list.files[5].webContentLink); // For downloading the file
 
-      // For the Last fm API calls: (All functions need to be seperated later for better readaility)
-      var tokenizerOutput = list.files[5].name.split("-");
-      String songName = tokenizerOutput[0];
-      String artistName = tokenizerOutput[1].split(".m")[0];
+      // For the Last fm API calls:
+      // var tokenizerOutput = list.files[5].name.split("-");
+      // String songName = tokenizerOutput[0];
+      // String artistName = tokenizerOutput[1].split(".m")[0];
+      // print(
+      //     "The song is called $songName and the Artist for it is $artistName");
+
+      // LIST CODE STARTS -------------------------------------------
+      var myObject = null;
+
+      // Gets all the file data Required for most purposes
+      for (var i = 0; i < list.files.length; i++) {
+        var tokenizerOutput = list.files[i].name.split("-");
+        String trackName = tokenizerOutput[0];
+        String artistName = tokenizerOutput[1].split(".m")[0];
+        String webViewLink = list.files[i].webViewLink;
+        myObject = {
+          'trackName': trackName,
+          'artistName': artistName,
+          'albumName': '',
+          'webViewLink': webViewLink,
+          'albumArtLink': ''
+        };
+        dataList.add(myObject);
+      }
+      print("This is the Datalist: \n $dataList \n\n");
       print(
-          "The song is called $songName and the Artist for it is $artistName");
+          "This is the first entry that should represent One complete song: \n ${dataList[0]} \n\n");
+
+      // for (int i = 0; i <= 5; i++) {
+      // myObject = {
+      //   'song': 'faded',
+      //   'artist': 'alan walker',
+      //   'link': 'https://www.youtube.com/watch?v=fueHz41q26o',
+      // };
+      // send.add(myObject);
+      // }
+      // print(myObject);
+      // print("\n");
+      // print(send);
+      // print("\n");
+
+      // print(send[0]);
+      // print("\n");
+
+      // print(send[0]["song"]);
+      // print("\n");
+
+      // LIST CODE ENDS -------------------------------------------
     });
   }
 
@@ -377,7 +423,7 @@ class _SongsState extends State<Songs> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => Player()),
+            MaterialPageRoute(builder: (context) => newPlayer()),
           );
           // Add your onPressed code here!
         },
