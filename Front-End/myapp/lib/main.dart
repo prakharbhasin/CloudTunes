@@ -237,12 +237,12 @@ class _RandomWordsState extends State<RandomWords> {
         var tokenizerOutput = list.files[i].name.split("-");
         String trackName = tokenizerOutput[0];
         String artistName = tokenizerOutput[1].split(".m")[0];
-        String webViewLink = list.files[i].webViewLink;
+        String webContentLink = list.files[i].webContentLink;
         myObject = {
           'trackName': trackName,
           'artistName': artistName,
           'albumName': '',
-          'webViewLink': webViewLink,
+          'webContentLink': webContentLink,
           'albumArtLink': ''
         };
         dataList.add(myObject);

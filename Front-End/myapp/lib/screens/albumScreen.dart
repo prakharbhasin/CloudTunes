@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/main.dart';
+import 'package:myapp/metadata.dart';
 
 final artistList = [
   "Travis Scott",
@@ -63,7 +65,7 @@ class _AlbumScreenState extends State<AlbumScreen> {
             shrinkWrap: true,
             childAspectRatio: (itemWidth / itemHeight),
             // Generate 100 widgets that display their index in the List.
-            children: List.generate(artistList.length, (index) {
+            children: List.generate(dataList.length, (index) {
               return Container(
                   height: 175,
                   width: 145,
@@ -85,22 +87,23 @@ class _AlbumScreenState extends State<AlbumScreen> {
                                 new BorderRadius.all(new Radius.circular(22.0)),
                             shape: BoxShape.rectangle,
                             image: DecorationImage(
-                                image: NetworkImage(coverList[index]),
+                                image: NetworkImage(
+                                    dataList[index]['albumArtLink']),
                                 fit: BoxFit.fitWidth)),
                       ),
                       Padding(
                           padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                           child: Text(
-                            albumList[index],
+                            dataList[index]['albumName'],
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
-                              fontSize: 18.5,
+                              fontSize: 16.5,
                             ),
                           )),
                       Padding(
                           padding: EdgeInsets.fromLTRB(0, 1, 0, 0),
-                          child: Text(artistList[index],
+                          child: Text(dataList[index]['artistName'],
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 12,

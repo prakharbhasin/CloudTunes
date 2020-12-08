@@ -92,6 +92,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:just_audio/just_audio.dart';
 
+import 'package:myapp/main.dart';
+import 'package:myapp/metadata.dart';
+
 // void main() => runApp(newPlayer());
 
 void main() {
@@ -108,6 +111,7 @@ class newPlayer extends StatefulWidget {
 
 class _newPlayerState extends State<newPlayer> {
   AudioPlayer _player;
+
   ConcatenatingAudioSource _playlist = ConcatenatingAudioSource(children: [
     LoopingAudioSource(
       count: 2,
@@ -124,9 +128,9 @@ class _newPlayerState extends State<newPlayer> {
         ),
       ),
     ),
+
     AudioSource.uri(
-      Uri.parse(
-          "https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3"),
+      Uri.parse(dataList[0]['webContentLink']),
       tag: AudioMetadata(
         album: "Science Friday",
         title: "A Salute To Head-Scratching Science",
@@ -144,6 +148,7 @@ class _newPlayerState extends State<newPlayer> {
             "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Yandhi_Cover_Art_%28Free_License%29.jpg/1200px-Yandhi_Cover_Art_%28Free_License%29.jpg",
       ),
     ),
+    // New audioSource
   ]);
 
   @override

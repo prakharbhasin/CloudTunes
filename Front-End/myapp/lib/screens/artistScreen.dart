@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
+import 'package:myapp/main.dart';
+import 'package:myapp/metadata.dart';
 
 final artistList = [
   "Travis Scott",
