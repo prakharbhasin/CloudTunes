@@ -2,27 +2,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-// //importing packages
-// import 'package:flutter/material.dart';
-import 'dart:async';
-
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:myapp/metadata.dart';
 import 'package:palette_generator/palette_generator.dart';
-// //import 'package:just_audio/just_audio.dart';
-// import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:googleapis/drive/v3.dart' as ga;
-// import 'package:google_sign_in/google_sign_in.dart';
-// import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-// import 'package:http/http.dart' as http;
-// import 'package:path/path.dart' as path;
-// import 'package:http/io_client.dart';
-// import 'package:path_provider/path_provider.dart';
-// // import 'package:file_picker/file_picker.dart';
-
 import 'dart:io';
+import 'dart:async';
 
 // import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +19,7 @@ import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as path;
 import 'package:http/io_client.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:loading_animations/loading_animations.dart';
 
 //importing files
 import 'metadata.dart';
@@ -45,51 +31,6 @@ import 'screens/recomScreen.dart';
 import 'screens/aboutScreen.dart';
 
 List<Map<String, dynamic>> dataList = [];
-
-// final FirebaseAuth _auth = FirebaseAuth.instance;
-// final GoogleSignIn googleSignIn = GoogleSignIn();
-// Future<String> signInWithGoogle() async {
-//   await Firebase.initializeApp();
-//   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
-//   final GoogleSignInAuthentication googleSignInAuthentication =
-//       await googleSignInAccount.authentication;
-//   final AuthCredential credential = GoogleAuthProvider.credential(
-//     accessToken: googleSignInAuthentication.accessToken,
-//     idToken: googleSignInAuthentication.idToken,
-//   );
-//   final UserCredential authResult =
-//       await _auth.signInWithCredential(credential);
-//   final User user = authResult.user;
-//   if (user != null) {
-//     assert(!user.isAnonymous);
-//     assert(await user.getIdToken() != null);
-//     final User currentUser = _auth.currentUser;
-//     assert(user.uid == currentUser.uid);
-//     print('signInWithGoogle succeeded: $user');
-//     return '$user';
-//   }
-//   return null;
-// }
-// Future<void> signOutGoogle() async {
-//   await googleSignIn.signOut();
-//   print("User Signed Out");
-// }
-
-// Future<void> _signInWithGoogle() async {
-//   final googleSignIn =
-//       signIn.GoogleSignIn.standard(scopes: [drive.DriveApi.DriveScope]);
-//   final signIn.GoogleSignInAccount account = await googleSignIn.signIn();
-//   // signIn.GoogleSignInAuthentication authentication =
-//   //     await account.authentication;
-//   // final client = MyClient(defaultHeaders: {
-//   //   'Authorization': 'Bearer ${authentication.accessToken}'
-//   // });
-
-//   // drive.DriveApi driveapi = drive.DriveApi(client);
-//   // var files = driveapi.files.list();
-//   // print(files);
-//   print("User account $account");
-// }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -128,6 +69,9 @@ class RandomWords extends StatefulWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
+  var showElem = false;
+  var showButton = false;
+
   // List of all data obtained from the google drive
   final storage = new FlutterSecureStorage();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -243,7 +187,8 @@ class _RandomWordsState extends State<RandomWords> {
           'artistName': artistName,
           'albumName': '',
           'webContentLink': webContentLink,
-          'albumArtLink': ''
+          'albumArtLink': '',
+          'artistImageLink': ''
         };
         dataList.add(myObject);
       }
@@ -311,6 +256,11 @@ class _RandomWordsState extends State<RandomWords> {
                       child: Text("Sign in with Google",
                           style: TextStyle(fontSize: 15)),
                     ))),
+            // LoadingFlipping.circle(
+            //   borderColor: Colors.pink,
+            //   size: 30.0,
+            //   duration: Duration(milliseconds: 500),
+            // ),
             Padding(
                 padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
                 child: ButtonTheme(

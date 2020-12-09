@@ -12,7 +12,7 @@ fetchMetadata(List<Map<String, dynamic>> dataList) async {
   // print(dataList[0]['trackName']);
 
   var scrobblenaut = Scrobblenaut(lastFM: lastFM);
-
+  var artistImagesList = [];
   // print(dataList.length);
 
   for (int i = 0; i < dataList.length; i++) {
@@ -26,6 +26,10 @@ fetchMetadata(List<Map<String, dynamic>> dataList) async {
     dataList[i]['artistName'] = trackGetInfo.artist.name;
     dataList[i]['albumName'] = trackGetInfo.album.title;
     dataList[i]['albumArtLink'] = trackGetInfo.album.images[2].text;
+
+    var artistGetinfo =
+        (await scrobblenaut.artist.getInfo(artist: trackGetInfo.artist.name));
+    dataList[i]['artistImageLink'] = artistGetinfo.images[2].text;
   }
 
   // print('Track Name: ${trackGetInfo.name} |'

@@ -129,15 +129,15 @@ class _newPlayerState extends State<newPlayer> {
       ),
     ),
 
-    AudioSource.uri(
-      Uri.parse(dataList[0]['webContentLink']),
-      tag: AudioMetadata(
-        album: "Science Friday",
-        title: "A Salute To Head-Scratching Science",
-        artwork:
-            "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg",
-      ),
-    ),
+    // AudioSource.uri(
+    //   Uri.parse(dataList[0]['webContentLink']),
+    //   tag: AudioMetadata(
+    //     album: "Science Friday",
+    //     title: "A Salute To Head-Scratching Science",
+    //     artwork:
+    //         "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg",
+    //   ),
+    // ),
     AudioSource.uri(
       Uri.parse(
           "https://docs.google.com/uc?export=download&id=1re4tYhSiagXNtdQkzLG39jOk8ujAAcHM"),
@@ -183,6 +183,7 @@ class _newPlayerState extends State<newPlayer> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Colors.grey[900],
         body: SafeArea(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -200,14 +201,18 @@ class _newPlayerState extends State<newPlayer> {
                       children: [
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.all(20.0),
                             child:
                                 Center(child: Image.network(metadata.artwork)),
                           ),
                         ),
+                        Text(metadata.title ?? '',
+                            style: TextStyle(
+                                color: Color(0xffff0055),
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22)),
                         Text(metadata.album ?? '',
-                            style: Theme.of(context).textTheme.headline6),
-                        Text(metadata.title ?? ''),
+                            style: TextStyle(color: Colors.grey, fontSize: 18)),
                       ],
                     );
                   },
@@ -245,8 +250,8 @@ class _newPlayerState extends State<newPlayer> {
                       final loopMode = snapshot.data ?? LoopMode.off;
                       const icons = [
                         Icon(Icons.repeat, color: Colors.grey),
-                        Icon(Icons.repeat, color: Colors.orange),
-                        Icon(Icons.repeat_one, color: Colors.orange),
+                        Icon(Icons.repeat, color: Colors.grey),
+                        Icon(Icons.repeat_one, color: Colors.grey),
                       ];
                       const cycleModes = [
                         LoopMode.off,
@@ -266,8 +271,9 @@ class _newPlayerState extends State<newPlayer> {
                   ),
                   Expanded(
                     child: Text(
-                      "Playlist",
-                      style: Theme.of(context).textTheme.headline6,
+                      " ",
+                      style: TextStyle(
+                          color: Colors.grey, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -287,30 +293,30 @@ class _newPlayerState extends State<newPlayer> {
                   ),
                 ],
               ),
-              Container(
-                height: 240.0,
-                child: StreamBuilder<SequenceState>(
-                  stream: _player.sequenceStateStream,
-                  builder: (context, snapshot) {
-                    final state = snapshot.data;
-                    final sequence = state?.sequence ?? [];
-                    return ListView.builder(
-                      itemCount: sequence.length,
-                      itemBuilder: (context, index) => Material(
-                        color: index == state.currentIndex
-                            ? Colors.grey.shade300
-                            : null,
-                        child: ListTile(
-                          title: Text(sequence[index].tag.title),
-                          onTap: () {
-                            _player.seek(Duration.zero, index: index);
-                          },
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              // Container(
+              //   height: 240.0,
+              //   child: StreamBuilder<SequenceState>(
+              //     stream: _player.sequenceStateStream,
+              //     builder: (context, snapshot) {
+              //       final state = snapshot.data;
+              //       final sequence = state?.sequence ?? [];
+              //       return ListView.builder(
+              //         itemCount: sequence.length,
+              //         itemBuilder: (context, index) => Material(
+              //           color: index == state.currentIndex
+              //               ? Colors.grey.shade300
+              //               : null,
+              //           child: ListTile(
+              //             title: Text(sequence[index].tag.title),
+              //             onTap: () {
+              //               _player.seek(Duration.zero, index: index);
+              //             },
+              //           ),
+              //         ),
+              //       );
+              //     },
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -331,6 +337,7 @@ class ControlButtons extends StatelessWidget {
       children: [
         IconButton(
           icon: Icon(Icons.volume_up),
+          color: Colors.grey,
           onPressed: () {
             _showSliderDialog(
               context: context,
@@ -346,6 +353,7 @@ class ControlButtons extends StatelessWidget {
         StreamBuilder<SequenceState>(
           stream: player.sequenceStateStream,
           builder: (context, snapshot) => IconButton(
+            color: Color(0xffff0055),
             icon: Icon(Icons.skip_previous),
             onPressed: player.hasPrevious ? player.seekToPrevious : null,
           ),
@@ -365,38 +373,63 @@ class ControlButtons extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             } else if (playing != true) {
-              return IconButton(
-                icon: Icon(Icons.play_arrow),
-                iconSize: 64.0,
-                onPressed: player.play,
-              );
+              return Container(
+                  margin: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                      color: Color(0xffff0055), shape: BoxShape.circle),
+                  child: Center(
+                      child: IconButton(
+                    color: Colors.white,
+                    icon: Icon(Icons.play_arrow),
+                    iconSize: 60.0,
+                    onPressed: player.play,
+                  )));
             } else if (processingState != ProcessingState.completed) {
-              return IconButton(
-                icon: Icon(Icons.pause),
-                iconSize: 64.0,
-                onPressed: player.pause,
-              );
+              return Container(
+                  margin: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                      color: Color(0xffff0055), shape: BoxShape.circle),
+                  child: Center(
+                      child: IconButton(
+                    color: Colors.white,
+                    icon: Icon(Icons.pause),
+                    iconSize: 60.0,
+                    onPressed: player.pause,
+                  )));
             } else {
-              return IconButton(
-                icon: Icon(Icons.replay),
-                iconSize: 64.0,
-                onPressed: () => player.seek(Duration.zero, index: 0),
-              );
+              return Container(
+                  margin: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                      color: Color(0xffff0055), shape: BoxShape.circle),
+                  child: Center(
+                      child: IconButton(
+                    color: Color(0xffff0055),
+                    icon: Icon(
+                      Icons.replay,
+                    ),
+                    iconSize: 60.0,
+                    onPressed: () => player.seek(Duration.zero, index: 0),
+                  )));
             }
           },
         ),
         StreamBuilder<SequenceState>(
           stream: player.sequenceStateStream,
           builder: (context, snapshot) => IconButton(
-            icon: Icon(Icons.skip_next),
+            color: Color(0xffff0055),
+            icon: Icon(Icons.skip_next, color: Color(0xffff0055)),
             onPressed: player.hasNext ? player.seekToNext : null,
           ),
         ),
         StreamBuilder<double>(
           stream: player.speedStream,
           builder: (context, snapshot) => IconButton(
+            color: Color(0xffff0055),
             icon: Text("${snapshot.data?.toStringAsFixed(1)}x",
-                style: TextStyle(fontWeight: FontWeight.bold)),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                )),
             onPressed: () {
               _showSliderDialog(
                 context: context,
