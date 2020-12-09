@@ -50,6 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        // appBar: AppBar(
+        //   title: Text(
+        //     'Songs',
+        //     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        //   ),
+        // ),
         backgroundColor: Colors.black,
         body: ListView.builder(
             padding: const EdgeInsets.all(8),

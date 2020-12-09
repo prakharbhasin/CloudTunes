@@ -31,6 +31,7 @@ import 'screens/recomScreen.dart';
 import 'screens/aboutScreen.dart';
 
 List<Map<String, dynamic>> dataList = [];
+String titleNew = '';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,7 +70,6 @@ class RandomWords extends StatefulWidget {
 }
 
 class _RandomWordsState extends State<RandomWords> {
-  var showElem = false;
   var showButton = false;
 
   // List of all data obtained from the google drive
@@ -136,7 +136,17 @@ class _RandomWordsState extends State<RandomWords> {
         signedIn = true;
       });
     });
-    _listGoogleDriveFiles();
+    _listGoogleDriveFiles().then((value) {
+      Future.delayed(Duration(seconds: 20), () {
+        setState(() {
+          showButton = false;
+        });
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Songs()),
+        );
+      });
+    });
   }
 
   Future<void> _listGoogleDriveFiles() async {
@@ -177,25 +187,28 @@ class _RandomWordsState extends State<RandomWords> {
       var myObject = null;
       // print(list.files.length);
       // Gets all the file data Required for most purposes
-      for (var i = 0; i < list.files.length; i++) {
-        var tokenizerOutput = list.files[i].name.split("-");
-        String trackName = tokenizerOutput[0];
-        String artistName = tokenizerOutput[1].split(".m")[0];
-        String webContentLink = list.files[i].webContentLink;
-        myObject = {
-          'trackName': trackName,
-          'artistName': artistName,
-          'albumName': '',
-          'webContentLink': webContentLink,
-          'albumArtLink': '',
-          'artistImageLink': '',
-          'recomTrack': '',
-          'recomArtist': '',
-          'recomImageLink': ''
-        };
-        dataList.add(myObject);
+      if (dataList.isEmpty) {
+        for (var i = 0; i < list.files.length; i++) {
+          var tokenizerOutput = list.files[i].name.split("-");
+          String trackName = tokenizerOutput[0];
+          String artistName = tokenizerOutput[1].split(".m")[0];
+          String webContentLink = list.files[i].webContentLink;
+          myObject = {
+            'trackName': trackName,
+            'artistName': artistName,
+            'albumName': '',
+            'webContentLink': webContentLink,
+            'albumArtLink': '',
+            'artistImageLink': '',
+            'recomTrack': '',
+            'recomArtist': '',
+            'recomImageLink': ''
+          };
+          dataList.add(myObject);
+        }
       }
       fetchMetadata(dataList);
+
       print(dataList);
       // LIST CODE ENDS -------------------------------------------
     });
@@ -205,6 +218,7 @@ class _RandomWordsState extends State<RandomWords> {
     return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
+          title: Text(titleNew),
           backgroundColor: Colors.black,
         ),
         body: Center(
@@ -245,6 +259,9 @@ class _RandomWordsState extends State<RandomWords> {
                     child: RaisedButton(
                       color: Color(0xffff0055),
                       onPressed: () {
+                        setState(() {
+                          showButton = true;
+                        });
                         _loginWithGoogle();
                         // Navigator.push(
                         //   context,
@@ -259,41 +276,47 @@ class _RandomWordsState extends State<RandomWords> {
                       child: Text("Sign in with Google",
                           style: TextStyle(fontSize: 15)),
                     ))),
-            // LoadingFlipping.circle(
-            //   borderColor: Colors.pink,
-            //   size: 30.0,
-            //   duration: Duration(milliseconds: 500),
-            // ),
-            Padding(
-                padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                child: ButtonTheme(
-                    minWidth: 220,
-                    height: 50,
-                    child: RaisedButton(
-                      color: Color(0xffff0055),
-                      onPressed: () {
-                        // _listGoogleDriveFiles().then((value) {
-                        Timer(Duration(seconds: 0), () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Songs()),
-                          );
-                        });
+            showButton
+                ? Padding(
+                    padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+                    child: LoadingJumpingLine.circle(
+                      borderColor: Colors.pink,
+                      backgroundColor: Colors.pink,
+                      size: 50.0,
+                      duration: Duration(milliseconds: 1000),
+                    ),
+                  )
+                : Container()
+            // Padding(
+            //     padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
+            //     child: ButtonTheme(
+            //         minWidth: 220,
+            //         height: 50,
+            //         child: RaisedButton(
+            //           color: Color(0xffff0055),
+            //           onPressed: () {
+            //             // _listGoogleDriveFiles().then((value) {
+            //             // Timer(Duration(seconds: 0), () {
+            //               // Navigator.push(
+            //               //   context,
+            //               //   MaterialPageRoute(builder: (context) => Songs()),
+            //               // );
+            //             });
 
-                        // });
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(builder: (context) => Songs()),
-                        // );
-                      },
-                      textColor: Colors.white,
-                      splashColor: Colors.pink[400],
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(20.0),
-                      ),
-                      child: Text("Show files with Google",
-                          style: TextStyle(fontSize: 15)),
-                    )))
+            //             // });
+            //             // Navigator.push(
+            //             //   context,
+            //             //   MaterialPageRoute(builder: (context) => Songs()),
+            //             // );
+            //           },
+            //           textColor: Colors.white,
+            //           splashColor: Colors.pink[400],
+            //           shape: new RoundedRectangleBorder(
+            //             borderRadius: new BorderRadius.circular(20.0),
+            //           ),
+            //           child: Text("Show files with Google",
+            //               style: TextStyle(fontSize: 15)),
+            //         )))
           ]),
         ));
   }
@@ -346,24 +369,32 @@ class _SongsState extends State<Songs> {
       }
     }
 
+    var titleList = ["Songs", "Albums", "Artists", "Recommendations"];
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(backgroundColor: Colors.black, actions: <Widget>[
-        PopupMenuButton<String>(
-          color: Colors.black,
-          onSelected: handleClick,
-          itemBuilder: (BuildContext context) {
-            return {'About Us', 'Settings'}.map((String choice) {
-              return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(
-                    choice,
-                    style: TextStyle(color: Colors.white),
-                  ));
-            }).toList();
-          },
-        ),
-      ]),
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.black,
+          title: Text(
+            _currentIndex == 0 ? titleList[0] : titleNew,
+            style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          ),
+          actions: <Widget>[
+            PopupMenuButton<String>(
+              color: Colors.black,
+              onSelected: handleClick,
+              itemBuilder: (BuildContext context) {
+                return {'About Us', 'Settings'}.map((String choice) {
+                  return PopupMenuItem<String>(
+                      value: choice,
+                      child: Text(
+                        choice,
+                        style: TextStyle(color: Colors.white),
+                      ));
+                }).toList();
+              },
+            ),
+          ]),
       body: tabs[_currentIndex],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -371,7 +402,7 @@ class _SongsState extends State<Songs> {
             context,
             MaterialPageRoute(
                 builder: (context) => newPlayer(
-                      playsong: null,
+                      playsong: 0,
                     )),
           );
           // Add your onPressed code here!
@@ -396,6 +427,7 @@ class _SongsState extends State<Songs> {
         onTap: (index) {
           setState(() {
             _currentIndex = index;
+            titleNew = titleList[_currentIndex];
           });
         },
       ),

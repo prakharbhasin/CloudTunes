@@ -67,8 +67,8 @@ class _AlbumScreenState extends State<AlbumScreen> {
             // Generate 100 widgets that display their index in the List.
             children: List.generate(dataList.length, (index) {
               return Container(
-                  height: 175,
-                  width: 145,
+                  height: 165,
+                  width: 155,
                   // margin: EdgeInsets.fromLTRB(1, 5, 0, 1),
                   padding: EdgeInsets.symmetric(horizontal: 1, vertical: 10),
                   decoration: BoxDecoration(
@@ -80,8 +80,8 @@ class _AlbumScreenState extends State<AlbumScreen> {
                   child: SingleChildScrollView(
                     child: Column(children: <Widget>[
                       Container(
-                        height: 155,
-                        width: 155,
+                        height: 175,
+                        width: 165,
                         decoration: BoxDecoration(
                             borderRadius:
                                 new BorderRadius.all(new Radius.circular(22.0)),
@@ -89,10 +89,10 @@ class _AlbumScreenState extends State<AlbumScreen> {
                             image: DecorationImage(
                                 image: NetworkImage(
                                     dataList[index]['albumArtLink']),
-                                fit: BoxFit.fitWidth)),
+                                fit: BoxFit.fill)),
                       ),
                       Padding(
-                          padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
+                          padding: EdgeInsets.fromLTRB(0, 20, 0, 0),
                           child: Text(
                             dataList[index]['albumName'],
                             style: TextStyle(

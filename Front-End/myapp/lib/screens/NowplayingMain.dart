@@ -117,31 +117,31 @@ class newPlayer extends StatefulWidget {
 
 class _newPlayerState extends State<newPlayer> {
   AudioPlayer _player;
+  var playList;
+  // ConcatenatingAudioSource _playlist =
+  //     ConcatenatingAudioSource(useLazyPreparation: true, children: [
+  //   // Gave errors stating assignment of Set<Audio Source> in <AudioSource>
+  //   // Due to working of maps such that they create a set. But, for individual items, use () instead of {}
+  //   for (Map name in dataList.sublist(widget.playsong))
+  //     (AudioSource.uri(
+  //       Uri.parse(name["webContentLink"]),
+  //       tag: AudioMetadata(
+  //         album: name["albumName"],
+  //         title: name["trackName"],
+  //         artwork: name["albumArtLink"],
+  //       ),
+  //     )),
 
-  ConcatenatingAudioSource _playlist =
-      ConcatenatingAudioSource(useLazyPreparation: true, children: [
-    // Gave errors stating assignment of Set<Audio Source> in <AudioSource>
-    // Due to working of maps such that they create a set. But, for individual items, use () instead of {}
-    for (Map name in dataList)
-      (AudioSource.uri(
-        Uri.parse(name["webContentLink"]),
-        tag: AudioMetadata(
-          album: name["albumName"],
-          title: name["trackName"],
-          artwork: name["albumArtLink"],
-        ),
-      )),
-
-    // AudioSource.uri(
-    //   Uri.parse(dataList[0]['webContentLink']),
-    //   tag: AudioMetadata(
-    //     album: dataList[0]["albumName"],
-    //     title: dataList[0]["trackName"],
-    //     artwork: dataList[0]["albumArtLink"],
-    //   ),
-    // ),
-    // New audioSource
-  ]);
+  //   // AudioSource.uri(
+  //   //   Uri.parse(dataList[0]['webContentLink']),
+  //   //   tag: AudioMetadata(
+  //   //     album: dataList[0]["albumName"],
+  //   //     title: dataList[0]["trackName"],
+  //   //     artwork: dataList[0]["albumArtLink"],
+  //   //   ),
+  //   // ),
+  //   // New audioSource
+  // ]);
 
   @override
   void initState() {
@@ -150,10 +150,40 @@ class _newPlayerState extends State<newPlayer> {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.black,
     ));
-    _init();
+    playList = dataList.sublist(widget.playsong);
+
+    // playList = widget.playsong != null
+    //     ? dataList.sublist(widget.playsong)
+    //     : dataList.sublist(0);
+
+    ConcatenatingAudioSource _playlist =
+        ConcatenatingAudioSource(useLazyPreparation: true, children: [
+      // Gave errors stating assignment of Set<Audio Source> in <AudioSource>
+      // Due to working of maps such that they create a set. But, for individual items, use () instead of {}
+      for (Map name in dataList.sublist(widget.playsong))
+        (AudioSource.uri(
+          Uri.parse(name["webContentLink"]),
+          tag: AudioMetadata(
+            album: name["albumName"],
+            title: name["trackName"],
+            artwork: name["albumArtLink"],
+          ),
+        )),
+
+      // AudioSource.uri(
+      //   Uri.parse(dataList[0]['webContentLink']),
+      //   tag: AudioMetadata(
+      //     album: dataList[0]["albumName"],
+      //     title: dataList[0]["trackName"],
+      //     artwork: dataList[0]["albumArtLink"],
+      //   ),
+      // ),
+      // New audioSource
+    ]);
+    _init(_playlist);
   }
 
-  _init() async {
+  _init(ConcatenatingAudioSource _playlist) async {
     final session = await AudioSession.instance;
     await session.configure(AudioSessionConfiguration.speech());
     try {
@@ -192,7 +222,7 @@ class _newPlayerState extends State<newPlayer> {
                     if (state?.sequence?.isEmpty ?? true) return SizedBox();
                     final metadata = state.currentSource.tag as AudioMetadata;
                     return Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Expanded(
                           child: Padding(
@@ -201,13 +231,18 @@ class _newPlayerState extends State<newPlayer> {
                                 Center(child: Image.network(metadata.artwork)),
                           ),
                         ),
-                        Text(metadata.title ?? '',
-                            style: TextStyle(
-                                color: Color(0xffff0055),
-                                fontWeight: FontWeight.bold,
-                                fontSize: 28)),
-                        Text(metadata.album ?? '',
-                            style: TextStyle(color: Colors.grey, fontSize: 22)),
+                        Padding(
+                            padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                            child: Text(metadata.title ?? '',
+                                style: TextStyle(
+                                    color: Color(0xffff0055),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 28))),
+                        Padding(
+                            padding: EdgeInsets.fromLTRB(22, 0, 0, 0),
+                            child: Text(metadata.album ?? '',
+                                style: TextStyle(
+                                    color: Colors.grey, fontSize: 22))),
                       ],
                     );
                   },
@@ -363,8 +398,8 @@ class ControlButtons extends StatelessWidget {
                 processingState == ProcessingState.buffering) {
               return Container(
                 margin: EdgeInsets.all(8.0),
-                width: 64.0,
-                height: 64.0,
+                width: 74.0,
+                height: 74.0,
                 child: CircularProgressIndicator(),
               );
               // player.play;
