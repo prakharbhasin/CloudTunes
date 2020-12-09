@@ -188,7 +188,10 @@ class _RandomWordsState extends State<RandomWords> {
           'albumName': '',
           'webContentLink': webContentLink,
           'albumArtLink': '',
-          'artistImageLink': ''
+          'artistImageLink': '',
+          'recomTrack': '',
+          'recomArtist': '',
+          'recomImageLink': ''
         };
         dataList.add(myObject);
       }

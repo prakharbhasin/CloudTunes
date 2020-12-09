@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/main.dart';
 import 'package:myapp/metadata.dart';
+import 'NowplayingMain.dart';
 
 final coverList = [
   'https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Travis_Scott_-_Highest_in_the_Room.png/330px-Travis_Scott_-_Highest_in_the_Room.png',
@@ -56,48 +57,57 @@ class _HomeScreenState extends State<HomeScreen> {
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
             itemBuilder: (BuildContext context, int index) {
-              return Container(
-                  height: 85,
-                  width: 375,
-                  margin: EdgeInsets.fromLTRB(0, 0, 0, 12.5),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.rectangle,
-                    color: Colors.grey[900],
-                    borderRadius:
-                        new BorderRadius.all(new Radius.circular(12.0)),
-                  ),
-                  child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Padding(
-                            padding: EdgeInsets.all(10),
-                            child: Image(
-                                image: NetworkImage(
-                                    dataList[index]['albumArtLink']),
-                                width: 75,
-                                height: 75)),
-                        Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                dataList[index]['trackName'],
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 17.5,
-                                    letterSpacing: 1),
-                              ),
-                              Text(
-                                dataList[index]['artistName'],
-                                style: TextStyle(
-                                  color: Colors.grey[500],
-                                  fontSize: 12.5,
-                                ),
-                              ),
-                            ])
-                      ]));
+              // Adding button function on List
+              return new GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => newPlayer(playsong: index),
+                        ));
+                  },
+                  child: Container(
+                      height: 85,
+                      width: 375,
+                      margin: EdgeInsets.fromLTRB(0, 0, 0, 12.5),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        color: Colors.grey[900],
+                        borderRadius:
+                            new BorderRadius.all(new Radius.circular(12.0)),
+                      ),
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Padding(
+                                padding: EdgeInsets.all(10),
+                                child: Image(
+                                    image: NetworkImage(
+                                        dataList[index]['albumArtLink']),
+                                    width: 75,
+                                    height: 75)),
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Text(
+                                    dataList[index]['trackName'],
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17.5,
+                                        letterSpacing: 1),
+                                  ),
+                                  Text(
+                                    dataList[index]['artistName'],
+                                    style: TextStyle(
+                                      color: Colors.grey[500],
+                                      fontSize: 12.5,
+                                    ),
+                                  ),
+                                ])
+                          ])));
             }));
   }
 }

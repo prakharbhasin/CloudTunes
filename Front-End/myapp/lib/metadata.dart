@@ -25,11 +25,29 @@ fetchMetadata(List<Map<String, dynamic>> dataList) async {
     dataList[i]['trackName'] = trackGetInfo.name;
     dataList[i]['artistName'] = trackGetInfo.artist.name;
     dataList[i]['albumName'] = trackGetInfo.album.title;
-    dataList[i]['albumArtLink'] = trackGetInfo.album.images[2].text;
+    dataList[i]['albumArtLink'] = trackGetInfo.album.images[3].text;
 
     var artistGetinfo =
         (await scrobblenaut.artist.getInfo(artist: trackGetInfo.artist.name));
     dataList[i]['artistImageLink'] = artistGetinfo.images[2].text;
+
+    var trackGetRecom = (await scrobblenaut.track.getSimilar(
+      track: dataList[i]['trackName'],
+      artist: dataList[i]['artistName'],
+      autoCorrect: true,
+    ));
+    dataList[i]['recomTrack'] = trackGetRecom[1].name;
+    dataList[i]['recomArtist'] = trackGetRecom[1].artist.name;
+    dataList[i]['recomImageLink'] = (await scrobblenaut.track.getInfo(
+      track: trackGetRecom[1].name,
+      artist: trackGetRecom[1].artist.name,
+      username: 'nebulino',
+      autoCorrect: true,
+    ))
+        .album
+        .images[1]
+        .text;
+    // trackGetRecom[0].images[2].text;
   }
 
   // print('Track Name: ${trackGetInfo.name} |'

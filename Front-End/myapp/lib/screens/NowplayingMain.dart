@@ -95,24 +95,35 @@ import 'package:just_audio/just_audio.dart';
 import 'package:myapp/main.dart';
 import 'package:myapp/metadata.dart';
 
-// void main() => runApp(newPlayer());
+void main() => runApp(newPlayer());
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: newPlayer(),
-  ));
-}
+// void main(int playsong) {
+//   runApp(MaterialApp(
+//     debugShowCheckedModeBanner: false,
+//     home: newPlayer(),
+//   ));
+// }
 
 class newPlayer extends StatefulWidget {
   @override
+  final int playsong;
+  // In the constructor, require a Todo.
+  newPlayer({Key key, @required this.playsong}) : super(key: key);
+
   _newPlayerState createState() => _newPlayerState();
 }
 
 class _newPlayerState extends State<newPlayer> {
   AudioPlayer _player;
-
   ConcatenatingAudioSource _playlist = ConcatenatingAudioSource(children: [
+    AudioSource.uri(
+      Uri.parse(dataList[0]["webContentLink"]),
+      tag: AudioMetadata(
+        album: dataList[0]["albumName"],
+        title: dataList[0]["trackName"],
+        artwork: dataList[0]["albumArtLink"],
+      ),
+    ),
     LoopingAudioSource(
       count: 2,
       child: ClippingAudioSource(
@@ -180,6 +191,8 @@ class _newPlayerState extends State<newPlayer> {
 
   @override
   Widget build(BuildContext context) {
+    var index = widget.playsong;
+    print(index);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -210,9 +223,9 @@ class _newPlayerState extends State<newPlayer> {
                             style: TextStyle(
                                 color: Color(0xffff0055),
                                 fontWeight: FontWeight.bold,
-                                fontSize: 22)),
+                                fontSize: 28)),
                         Text(metadata.album ?? '',
-                            style: TextStyle(color: Colors.grey, fontSize: 18)),
+                            style: TextStyle(color: Colors.grey, fontSize: 22)),
                       ],
                     );
                   },
@@ -372,6 +385,7 @@ class ControlButtons extends StatelessWidget {
                 height: 64.0,
                 child: CircularProgressIndicator(),
               );
+              // player.play;
             } else if (playing != true) {
               return Container(
                   margin: EdgeInsets.all(12),
@@ -495,15 +509,17 @@ class _SeekBarState extends State<SeekBar> {
           },
         ),
         Positioned(
-          right: 16.0,
+          right: 22.0,
           bottom: 0.0,
           child: Text(
               RegExp(r'((^0*[1-9]\d*:)?\d{2}:\d{2})\.\d+$')
                       .firstMatch("$_remaining")
                       ?.group(1) ??
                   '$_remaining',
-              style: Theme.of(context).textTheme.caption),
-        ),
+              style: TextStyle(color: Colors.grey)
+              //Theme.of(context).textTheme.caption),
+              ),
+        )
       ],
     );
   }
