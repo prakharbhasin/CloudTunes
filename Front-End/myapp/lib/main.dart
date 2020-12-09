@@ -369,7 +369,10 @@ class _SongsState extends State<Songs> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => newPlayer()),
+            MaterialPageRoute(
+                builder: (context) => newPlayer(
+                      playsong: null,
+                    )),
           );
           // Add your onPressed code here!
         },

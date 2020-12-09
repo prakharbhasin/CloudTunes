@@ -95,7 +95,9 @@ import 'package:just_audio/just_audio.dart';
 import 'package:myapp/main.dart';
 import 'package:myapp/metadata.dart';
 
-void main() => runApp(newPlayer());
+void main() => runApp(newPlayer(
+      playsong: null,
+    ));
 
 // void main(int playsong) {
 //   runApp(MaterialApp(
@@ -115,50 +117,29 @@ class newPlayer extends StatefulWidget {
 
 class _newPlayerState extends State<newPlayer> {
   AudioPlayer _player;
-  ConcatenatingAudioSource _playlist = ConcatenatingAudioSource(children: [
-    AudioSource.uri(
-      Uri.parse(dataList[0]["webContentLink"]),
-      tag: AudioMetadata(
-        album: dataList[0]["albumName"],
-        title: dataList[0]["trackName"],
-        artwork: dataList[0]["albumArtLink"],
-      ),
-    ),
-    LoopingAudioSource(
-      count: 2,
-      child: ClippingAudioSource(
-        start: Duration(seconds: 60),
-        end: Duration(seconds: 65),
-        child: AudioSource.uri(Uri.parse(
-            "https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3")),
+
+  ConcatenatingAudioSource _playlist =
+      ConcatenatingAudioSource(useLazyPreparation: true, children: [
+    // Gave errors stating assignment of Set<Audio Source> in <AudioSource>
+    // Due to working of maps such that they create a set. But, for individual items, use () instead of {}
+    for (Map name in dataList)
+      (AudioSource.uri(
+        Uri.parse(name["webContentLink"]),
         tag: AudioMetadata(
-          album: "Science Friday",
-          title: "A Salute To Head-Scratching Science (5 seconds)",
-          artwork:
-              "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg",
+          album: name["albumName"],
+          title: name["trackName"],
+          artwork: name["albumArtLink"],
         ),
-      ),
-    ),
+      )),
 
     // AudioSource.uri(
     //   Uri.parse(dataList[0]['webContentLink']),
     //   tag: AudioMetadata(
-    //     album: "Science Friday",
-    //     title: "A Salute To Head-Scratching Science",
-    //     artwork:
-    //         "https://media.wnyc.org/i/1400/1400/l/80/1/ScienceFriday_WNYCStudios_1400.jpg",
+    //     album: dataList[0]["albumName"],
+    //     title: dataList[0]["trackName"],
+    //     artwork: dataList[0]["albumArtLink"],
     //   ),
     // ),
-    AudioSource.uri(
-      Uri.parse(
-          "https://docs.google.com/uc?export=download&id=1re4tYhSiagXNtdQkzLG39jOk8ujAAcHM"),
-      tag: AudioMetadata(
-        album: "Yandhi",
-        title: "80 Degrees/Hurricane",
-        artwork:
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Yandhi_Cover_Art_%28Free_License%29.jpg/1200px-Yandhi_Cover_Art_%28Free_License%29.jpg",
-      ),
-    ),
     // New audioSource
   ]);
 
@@ -183,6 +164,7 @@ class _newPlayerState extends State<newPlayer> {
     }
   }
 
+// What Closing the panel with back button does.
   @override
   void dispose() {
     _player.dispose();
@@ -263,8 +245,8 @@ class _newPlayerState extends State<newPlayer> {
                       final loopMode = snapshot.data ?? LoopMode.off;
                       const icons = [
                         Icon(Icons.repeat, color: Colors.grey),
-                        Icon(Icons.repeat, color: Colors.grey),
-                        Icon(Icons.repeat_one, color: Colors.grey),
+                        Icon(Icons.repeat, color: Colors.pink),
+                        Icon(Icons.repeat_one, color: Colors.pink),
                       ];
                       const cycleModes = [
                         LoopMode.off,
@@ -296,7 +278,7 @@ class _newPlayerState extends State<newPlayer> {
                       final shuffleModeEnabled = snapshot.data ?? false;
                       return IconButton(
                         icon: shuffleModeEnabled
-                            ? Icon(Icons.shuffle, color: Colors.orange)
+                            ? Icon(Icons.shuffle, color: Colors.pink)
                             : Icon(Icons.shuffle, color: Colors.grey),
                         onPressed: () {
                           _player.setShuffleModeEnabled(!shuffleModeEnabled);
