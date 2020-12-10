@@ -41,7 +41,7 @@ class AboutUs extends StatelessWidget {
                           letterSpacing: 0.5),
                     )),
                 ListView.builder(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(12),
                     itemCount: nameList.length,
                     scrollDirection: Axis.vertical,
                     shrinkWrap: true,

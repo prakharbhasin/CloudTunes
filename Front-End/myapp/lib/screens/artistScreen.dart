@@ -4,20 +4,22 @@ import 'package:myapp/main.dart';
 import 'package:myapp/metadata.dart';
 
 final artistList = [
-  "Travis Scott",
-  "The Weeknd",
-  "Frank Ocean",
-  "Ritviz",
   "Alan Walker",
-  "BTS"
+  "Green Day",
+  "Jon Bellion",
+  "Lukas Graham",
+  "Maroon 5",
+  "Marshmello",
+  "Martin Garrix"
 ];
 final artistImageList = [
-  'https://lastfm.freetls.fastly.net/i/u/770x0/2fb9deb1b31042fa291f1997389d93ea.webp#2fb9deb1b31042fa291f1997389d93ea',
-  'https://lastfm.freetls.fastly.net/i/u/770x0/d4a00a9d9d5bcf16b8bb5e3ea4169181.webp#d4a00a9d9d5bcf16b8bb5e3ea4169181',
-  "https://lastfm.freetls.fastly.net/i/u/770x0/50028f4627cb9f0d6ec60434646b2bb8.webp#50028f4627cb9f0d6ec60434646b2bb8",
-  "https://lastfm.freetls.fastly.net/i/u/770x0/437d3def4c0dedd076de8d3a5e31527b.webp#437d3def4c0dedd076de8d3a5e31527b",
   "https://lastfm.freetls.fastly.net/i/u/770x0/3fbb4a220ea9e8e04efc174e0f7e77c6.webp#3fbb4a220ea9e8e04efc174e0f7e77c6",
-  "https://lastfm.freetls.fastly.net/i/u/770x0/c86b5eb66796245e7de90fb30f26f4eb.webp#c86b5eb66796245e7de90fb30f26f4eb"
+  "https://lastfm.freetls.fastly.net/i/u/770x0/63a2f9bdd8fc389123b8b8db8a95cc6d.webp#63a2f9bdd8fc389123b8b8db8a95cc6d",
+  "https://lastfm.freetls.fastly.net/i/u/770x0/40e133c5f7a49d34cd3bc786d0eb0937.webp#40e133c5f7a49d34cd3bc786d0eb0937",
+  "https://lastfm.freetls.fastly.net/i/u/770x0/a96e2620f0b01f34cc5c2893545aeb6a.webp#a96e2620f0b01f34cc5c2893545aeb6a",
+  "https://lastfm.freetls.fastly.net/i/u/770x0/0d5eb4f51e0189e5b58c2a35517ef68e.webp#0d5eb4f51e0189e5b58c2a35517ef68e",
+  "https://lastfm.freetls.fastly.net/i/u/770x0/a89459d5fcd3a73f367708c194c285f4.webp#a89459d5fcd3a73f367708c194c285f4",
+  "https://lastfm.freetls.fastly.net/i/u/770x0/5cd16868a1e01103fcc98afb52ffb9e8.webp#5cd16868a1e01103fcc98afb52ffb9e8",
 ];
 
 void main() {

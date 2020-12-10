@@ -1,90 +1,3 @@
-// --------------------------------------------------APPU OKKAY HII ------------------------------------------------------------
-
-// import 'package:flutter/material.dart';
-// //import 'package:nowplay/nowPlayingScreen.dart';
-
-// import '../components/albumart.dart';
-// import '../components/navbar.dart';
-// import '../components/colors.dart';
-// import '../components/playerControls.dart';
-// import '../components/nowPlayingScreen.dart';
-
-// void main() {
-//   runApp(MaterialApp(
-//     debugShowCheckedModeBanner: false,
-//     home: HomePage(),
-//   ));
-// }
-
-// class Player extends StatefulWidget {
-//   @override
-//   _PlayerState createState() => _PlayerState();
-// }
-
-// class _PlayerState extends State<Player> {
-//   double sliderValue = 2;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     double height = MediaQuery.of(context).size.height;
-
-//     return Scaffold(
-//       backgroundColor: primaryColor,
-//       body: Column(
-//         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//         children: <Widget>[
-//           NavigationBar(),
-//           Container(
-//             height: height / 2.5,
-//             child: ListView.builder(
-//               itemBuilder: (context, index) {
-//                 return AlbumArt();
-//               },
-//               itemCount: 3,
-//               scrollDirection: Axis.horizontal,
-//             ),
-//           ),
-//           Text(
-//             'Highest in the room',
-//             style: TextStyle(
-//                 fontSize: 28, fontWeight: FontWeight.w500, color: Colors.white),
-//           ),
-//           Text(
-//             'Travis Scott ',
-//             style: TextStyle(
-//                 fontSize: 20,
-//                 fontWeight: FontWeight.w400,
-//                 color: Colors.white70),
-//           ),
-//           SliderTheme(
-//             data: SliderThemeData(
-//                 trackHeight: 5,
-//                 thumbShape: RoundSliderThumbShape(enabledThumbRadius: 5)),
-//             child: Slider(
-//               value: sliderValue,
-//               activeColor: darkPrimaryColor,
-//               inactiveColor: darkPrimaryColor.withOpacity(0.3),
-//               onChanged: (value) {
-//                 setState(() {
-//                   sliderValue = value;
-//                 });
-//               },
-//               min: 0,
-//               max: 20,
-//             ),
-//           ),
-//           PlayerControls(),
-//           SizedBox(
-//             height: 100,
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// --------------------------------------------------APPU OKKAY BYE ------------------------------------------------------------
-
 import 'dart:math';
 
 import 'package:audio_session/audio_session.dart';
@@ -99,13 +12,6 @@ void main() => runApp(newPlayer(
       playsong: null,
     ));
 
-// void main(int playsong) {
-//   runApp(MaterialApp(
-//     debugShowCheckedModeBanner: false,
-//     home: newPlayer(),
-//   ));
-// }
-
 class newPlayer extends StatefulWidget {
   @override
   final int playsong;
@@ -118,31 +24,6 @@ class newPlayer extends StatefulWidget {
 class _newPlayerState extends State<newPlayer> {
   AudioPlayer _player;
   var playList;
-  // ConcatenatingAudioSource _playlist =
-  //     ConcatenatingAudioSource(useLazyPreparation: true, children: [
-  //   // Gave errors stating assignment of Set<Audio Source> in <AudioSource>
-  //   // Due to working of maps such that they create a set. But, for individual items, use () instead of {}
-  //   for (Map name in dataList.sublist(widget.playsong))
-  //     (AudioSource.uri(
-  //       Uri.parse(name["webContentLink"]),
-  //       tag: AudioMetadata(
-  //         album: name["albumName"],
-  //         title: name["trackName"],
-  //         artwork: name["albumArtLink"],
-  //       ),
-  //     )),
-
-  //   // AudioSource.uri(
-  //   //   Uri.parse(dataList[0]['webContentLink']),
-  //   //   tag: AudioMetadata(
-  //   //     album: dataList[0]["albumName"],
-  //   //     title: dataList[0]["trackName"],
-  //   //     artwork: dataList[0]["albumArtLink"],
-  //   //   ),
-  //   // ),
-  //   // New audioSource
-  // ]);
-
   @override
   void initState() {
     super.initState();
@@ -151,10 +32,6 @@ class _newPlayerState extends State<newPlayer> {
       statusBarColor: Colors.black,
     ));
     playList = dataList.sublist(widget.playsong);
-
-    // playList = widget.playsong != null
-    //     ? dataList.sublist(widget.playsong)
-    //     : dataList.sublist(0);
 
     ConcatenatingAudioSource _playlist =
         ConcatenatingAudioSource(useLazyPreparation: true, children: [
@@ -323,30 +200,6 @@ class _newPlayerState extends State<newPlayer> {
                   ),
                 ],
               ),
-              // Container(
-              //   height: 240.0,
-              //   child: StreamBuilder<SequenceState>(
-              //     stream: _player.sequenceStateStream,
-              //     builder: (context, snapshot) {
-              //       final state = snapshot.data;
-              //       final sequence = state?.sequence ?? [];
-              //       return ListView.builder(
-              //         itemCount: sequence.length,
-              //         itemBuilder: (context, index) => Material(
-              //           color: index == state.currentIndex
-              //               ? Colors.grey.shade300
-              //               : null,
-              //           child: ListTile(
-              //             title: Text(sequence[index].tag.title),
-              //             onTap: () {
-              //               _player.seek(Duration.zero, index: index);
-              //             },
-              //           ),
-              //         ),
-              //       );
-              //     },
-              //   ),
-              // ),
             ],
           ),
         ),

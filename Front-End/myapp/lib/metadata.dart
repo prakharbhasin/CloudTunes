@@ -12,8 +12,6 @@ fetchMetadata(List<Map<String, dynamic>> dataList) async {
   // print(dataList[0]['trackName']);
 
   var scrobblenaut = Scrobblenaut(lastFM: lastFM);
-  var artistImagesList = [];
-  // print(dataList.length);
 
   for (int i = 0; i < dataList.length; i++) {
     var trackGetInfo = (await scrobblenaut.track.getInfo(

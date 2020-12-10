@@ -2,35 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:myapp/main.dart';
 import 'package:myapp/metadata.dart';
 
-final artistList = [
-  "Travis Scott",
-  "Ritviz",
-  "Nas",
-  "Kanye West",
-  "Alan Walker",
-  "The Weeknd",
-  "The Weeknd"
-];
-
-final albumList = [
-  "HITR",
-  "Ved",
-  "King's Disease",
-  "MBDTF",
-  "Faded",
-  "After Hours",
-  "After Hours"
-];
-final coverList = [
-  'https://upload.wikimedia.org/wikipedia/en/thumb/b/b4/Travis_Scott_-_Highest_in_the_Room.png/330px-Travis_Scott_-_Highest_in_the_Room.png',
-  'https://i.pinimg.com/originals/46/dd/39/46dd39b3e2c62b4e379ed6155449be28.jpg',
-  'https://upload.wikimedia.org/wikipedia/en/1/1e/King%27s_Disease_by_Nas.jpg',
-  'https://upload.wikimedia.org/wikipedia/en/b/be/MBDTF_ALT.jpg',
-  'https://upload.wikimedia.org/wikipedia/en/d/da/Alan_Walker_-_Faded.png',
-  'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png',
-  'https://upload.wikimedia.org/wikipedia/en/c/c1/The_Weeknd_-_After_Hours.png',
-];
-
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
