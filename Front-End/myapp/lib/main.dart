@@ -76,7 +76,7 @@ class _RandomWordsState extends State<RandomWords> {
   final storage = new FlutterSecureStorage();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn =
-      GoogleSignIn(scopes: ['https://www.googleapis.com/auth/drive.appdata']);
+      GoogleSignIn(scopes: ['https://www.googleapis.com/auth/drive']);
   GoogleSignInAccount googleSignInAccount;
   ga.FileList list;
   var signedIn = false;
