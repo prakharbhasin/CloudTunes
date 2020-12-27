@@ -1,7 +1,7 @@
 import 'package:scrobblenaut/scrobblenaut.dart';
 import 'main.dart';
 
-const API_KEY = "46919549c0aafc3f83332705193df0af";
+const API_KEY = "";
 
 fetchMetadata(List<Map<String, dynamic>> dataList) async {
   var lastFM = await LastFM.noAuth(

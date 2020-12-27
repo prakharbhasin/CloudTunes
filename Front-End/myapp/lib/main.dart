@@ -6,7 +6,6 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:myapp/metadata.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'dart:io';
 import 'dart:async';
 
 // import 'package:file_picker/file_picker.dart';
@@ -16,9 +15,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:googleapis/drive/v3.dart' as ga;
 import 'package:http/http.dart' as http;
-import 'package:path/path.dart' as path;
 import 'package:http/io_client.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:loading_animations/loading_animations.dart';
 
 //importing files
@@ -82,7 +79,7 @@ class _RandomWordsState extends State<RandomWords> {
   var signedIn = false;
 
   Future<void> _loginWithGoogle() async {
-    print("Hello 1"); // PRINT TEST 1
+    //print("Hello 1"); // PRINT TEST 1
     signedIn = await storage.read(key: "signedIn") == "true" ? true : false;
     googleSignIn.onCurrentUserChanged
         .listen((GoogleSignInAccount googleSignInAccount) async {
@@ -90,7 +87,7 @@ class _RandomWordsState extends State<RandomWords> {
         _afterGoogleLogin(googleSignInAccount);
       }
     });
-    print("Hello 2"); // PRINT TEST 2
+    //print("Hello 2"); // PRINT TEST 2
     if (signedIn) {
       try {
         googleSignIn.signInSilently().whenComplete(() => () {});
@@ -150,11 +147,8 @@ class _RandomWordsState extends State<RandomWords> {
   }
 
   Future<void> _listGoogleDriveFiles() async {
-    // print("LINE 1");
     var client = GoogleHttpClient(await googleSignInAccount.authHeaders);
     var drive = ga.DriveApi(client);
-    // print("LINE 2, drive:");
-    // print(drive);
     drive.files
         .list(
             q: 'mimeType ="audio/mpeg"',
@@ -223,11 +217,6 @@ class _RandomWordsState extends State<RandomWords> {
         ),
         body: Center(
           child: Column(children: <Widget>[
-            // Icon(
-            //   Icons.audiotrack,
-            //   color: Colors.deepPurple,
-            //   size: 100.0,
-            // ),
             Image(
               image: AssetImage('assets/Logo.png'),
               height: 175,
@@ -287,36 +276,6 @@ class _RandomWordsState extends State<RandomWords> {
                     ),
                   )
                 : Container()
-            // Padding(
-            //     padding: EdgeInsets.fromLTRB(0, 25, 0, 0),
-            //     child: ButtonTheme(
-            //         minWidth: 220,
-            //         height: 50,
-            //         child: RaisedButton(
-            //           color: Color(0xffff0055),
-            //           onPressed: () {
-            //             // _listGoogleDriveFiles().then((value) {
-            //             // Timer(Duration(seconds: 0), () {
-            //               // Navigator.push(
-            //               //   context,
-            //               //   MaterialPageRoute(builder: (context) => Songs()),
-            //               // );
-            //             });
-
-            //             // });
-            //             // Navigator.push(
-            //             //   context,
-            //             //   MaterialPageRoute(builder: (context) => Songs()),
-            //             // );
-            //           },
-            //           textColor: Colors.white,
-            //           splashColor: Colors.pink[400],
-            //           shape: new RoundedRectangleBorder(
-            //             borderRadius: new BorderRadius.circular(20.0),
-            //           ),
-            //           child: Text("Show files with Google",
-            //               style: TextStyle(fontSize: 15)),
-            //         )))
           ]),
         ));
   }
@@ -331,27 +290,10 @@ class _SongsState extends State<Songs> {
   @override
   int _currentIndex = 0;
 
-  final List<String> albums = [
-    "https://lastfm.freetls.fastly.net/i/u/770x0/0fa89808a82367bed2ea11e16868c50b.webp#0fa89808a82367bed2ea11e16868c50b",
-    "https://lastfm.freetls.fastly.net/i/u/770x0/dfd01019404313399f77999285f78aa9.webp#dfd01019404313399f77999285f78aa9",
-  ];
-  List<PaletteColor> colors;
-
   @override
   void initState() {
     super.initState();
-    //_getImagePalette();
   }
-
-  // _getImagePalette() async {
-  //   colors = [];
-  //   for (String album in albums) {
-  //     final PaletteGenerator paletteGenerator =
-  //         await PaletteGenerator.fromImageProvider(NetworkImage(album));
-  //     colors.add(paletteGenerator.dominantColor);
-  //   }
-  //   setState(() {});
-  // }
 
   final tabs = [HomeScreen(), AlbumScreen(), ArtistScreen(), RecomScreen()];
 
