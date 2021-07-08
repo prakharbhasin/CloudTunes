@@ -1,64 +1,91 @@
-# CloudTunes
+![cloudtunes](https://socialify.git.ci/prakharbhasin/CloudTunes/image?description=1&descriptionEditable=A%20Flutter-based%20project%20allowing%20for%20users%20to%20listen%20to%20music%20files%20stored%20in%20their%20Google%20Drive%20without%20downloading%20them%20locally.&font=Inter&language=1&pattern=Signal&theme=Dark)
 
-This Flutter based project allows for users to listen to music files stored in their Google Drive without downloading them on their mobile phones by providing or a Music Player app.
 
-## Description
+# 💻 CloudTunes 🎵
 
-This Flutter based project allows for users to listen to music files stored in their Google Drive without downloading them on their mobile phones by providing or a Music Player app.
+_**Music Playback, the way you want it.**_ 
 
-## Getting Started
+## Introduction 
 
-* Firstly, the Google Account you are going to use, let's say [abc@xyz.com], there should be audio files stored in it, preferably with the extension of .mp3.
-* Make sure all these files have their access set to public, this is necessary for the publishiing of the ContentLink(s) of these files for playback.
-* Step 3
+Dropping music files in your free Google Drive storage and being able to
+access it anywhere with unlimited cross-device access. Magical, isn’t it?
 
-### Dependencies
+## Description 
 
-* Dependency 1
-* Dependency 2
+There is no music streaming service that can play
+multimedia files from commonly used cloud services
+We hardly find any app that allows dropping music files in
+your free Google Drive storage and being able to access it
+anywhere with unlimited cross-device access.
 
-### Installing
+Cloud storage services have not been used by major music
+streaming company . It is more secure and convenient
+compared to other forms of storage.
 
-* Step 1
-* Step 2
+## Features 
 
-### Executing program
+After downloading the application, the users get access to the following key features:
 
-* Step 1
-* Step 2
-```
-code blocks for commands
-```
+### 1) Secure Login through Google Cloud Platform
+The application is developed, giving utmost priority to user security and data privacy.
+Thus, the login system implemented is OAuth, which is one of the finest and most
+user-friendly methods for securely accessing user data. OAuth gives the users
+complete information about the data they are providing to the application, even having
+an option to invoke the access whenever they want.
+### 2) Unlimited Access to Music on Google Drive Platform
+Google Drive is universally accessible by anyone having a Google Account, which in turn
+comes with Google Drive storage. The software application will provide users to directly
+access their cloud storage, and the music files stored in it.
+### 3) Uninterrupted Music Playback
+With the advent of music streaming services, come persistent ads and interruptions. To
+make sure users are free from all these distractions and annoyances, our CBMS
+requires no paid subscription and ships with zero ads.
+### 4) Recommendation System
+The recommendation system is a sub-component of our CBMS. It provides users songs
+which they may like, based on the songs that they previously listened to. Every
+logged-in user should have access to the recommender system. The system will go
+through the songs that the user previously listened to, then according to that
+information, it should provide songs to the user. An API for the same will be
+constructed to make HTTP requests to access large databases of music records to
+provide these recommendations.
+### 5) Efficient Usage of Device Storage
+High-quality audio files take up a lot of storage on our mobile devices. In many cases, it
+leads to a shortage of storage space. Our CBMS fetches all of your music libraries from
+Google Drive which minimizes usage of storage. We only take up a small portion of the
+device’s storage to cache the metadata of files for faster app performance.
 
-## Help
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+## Technology Stack
 
-## Authors
+- **Front-End:** Flutter, Dart
+- **Back-end:** Django
+- **Version Control:** Git and GitHub 
+- **Task Management:** Notion
+- **Standup Meetings:** Microsoft Teams
 
-Contributors names and contact info
 
-* [Kirtik Singh](https://github.com/kirtiksingh)
-* [Prakhar Bhasin](https://github.com/prkhrbhsn)
-* [Apoorva Nautiyal](https://github.com/appu15)
+## Other Content
 
-## Version History
+**[Detailed Report](https://github.com/prakharbhasin/CloudTunes/blob/master/Documentation/ProjectReport.pdf)**
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
+**[Presentation](https://github.com/prakharbhasin/CloudTunes/blob/master/Documentation/Presentation.pdf)**
 
-## License
 
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
+## 🤝 How to Contribute?
 
-## Acknowledgments
+- Take a look at the Existing Issues or create your own Issues!
+- Wait for the Issue to be assigned to you after which you can start working on it.
+- Fork the Repo and create a Branch for any Issue that you are working upon.
+- Create a Pull Request which will be promptly reviewed and suggestions would be added to improve it.
+- Add Screenshots to help us know what this Script is all about.
 
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
+## 👨‍💻 Contributors 
+
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/prkhrbhsn"><img src="https://avatars.githubusercontent.com/u/61727284?v=4" width="100px;" alt="" style="border-radius:50%"/><br /><sub><b>Prakhar Bhasin</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/kirtiksingh"><img src="https://avatars.githubusercontent.com/u/42700919?v=4" width="100px;" alt="" style="border-radius:50%"/><br /><sub><b>Kirtik Singh</b></sub></a><br /></td> 
+    <td align="center"><a href=""><img src="https://avatars.githubusercontent.com/u/38958532?v=4" width="100px;" alt="" style="border-radius:50%"/><br /><sub><b>Apoorva Nautiyal</b></sub></a><br /></td>
+
+  </tr>
+</table>
