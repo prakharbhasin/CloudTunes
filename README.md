@@ -85,7 +85,7 @@ device’s storage to cache the metadata of files for faster app performance.
   <tr>
     <td align="center"><a href="https://github.com/prkhrbhsn"><img src="https://avatars.githubusercontent.com/u/61727284?v=4" width="100px;" alt="" style="border-radius:50%"/><br /><sub><b>Prakhar Bhasin</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/kirtiksingh"><img src="https://avatars.githubusercontent.com/u/42700919?v=4" width="100px;" alt="" style="border-radius:50%"/><br /><sub><b>Kirtik Singh</b></sub></a><br /></td> 
-    <td align="center"><a href=""><img src="https://avatars.githubusercontent.com/u/38958532?v=4" width="100px;" alt="" style="border-radius:50%"/><br /><sub><b>Apoorva Nautiyal</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/appu15"><img src="" width="100px;" alt="" style="border-radius:50%"/><br /><sub><b>Apoorva Nautiyal</b></sub></a><br /></td>
 
   </tr>
 </table>
